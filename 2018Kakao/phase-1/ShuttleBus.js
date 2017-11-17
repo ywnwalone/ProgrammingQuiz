@@ -82,15 +82,80 @@ var test4 = {
   m:45,
   timetable: ['23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59','23:59']
 }
-
+var test5 = {
+  n:1,
+  t:1,
+  m:1,
+  timetable: ['23:59']
+}
+var test6 = {
+  n:1,
+  t:1,
+  m:5,
+  timetable: ['00:01','00:01','00:01','00:01','00:01']
+}
 
 function solution(n, t, m, timetable){
   var answer = '';
+  const START = 540; // 09:00
+  var now = START;
+  var last = '';
+  var count = 0;
+  for(let i = 0; i < timetable.length; i++){
+    timetable[i] = timeConvert(timetable[i]);
+  }
+  timetable.sort(function(a, b) {
+    return a - b;
+  });
 
+  for(var i = 0; i < n; i++){
+    count = 0;
+    if(i!=0){
+      now+=t;
+    }
+    for(var j = 0; j < m; j++){
+      let pos = 0;
+      if(timetable[pos]<=now && timetable.length != 0){
+        count++;
+        last = timetable.shift();
+        pos--;
+      }
+      pos++;
+    }
+
+  }
+  if(m > count){
+    answer = now;
+  }else{
+    answer = parseInt(last) - 1;
+  }
+  answer = convertTime(answer);
   return answer;
 }
+function timeConvert(time){
+   var arr = time.split(':');
+   var ans = 0;
+   ans += parseInt(arr[0])*60;
+   ans += parseInt(arr[1]);
+   return ans;
+}
+function convertTime(time){
+  var h = parseInt(time/60);
+  var m = time%60;
+
+  return pad(h,2)+":"+pad(m,2)
+
+}
+function pad(n, width) {
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+}
+
 
 console.log(solution(test1.n,test1.t,test1.m,test1.timetable));
 console.log(solution(test2.n,test2.t,test2.m,test2.timetable));
-console.log(solution(test3.n,test3.t,test3.m,test3.timetable));
-console.log(solution(test4.n,test4.t,test4.m,test4.timetable));
+ console.log(solution(test3.n,test3.t,test3.m,test3.timetable));
+ console.log(solution(test4.n,test4.t,test4.m,test4.timetable));
+
+ console.log(solution(test5.n,test5.t,test5.m,test5.timetable));
+ console.log(solution(test6.n,test6.t,test6.m,test6.timetable));
