@@ -22,7 +22,7 @@
 **  두 집합 A, B 사이의 자카드 유사도 J(A,B)는 두 집합의 교집합 크기를 두 집합의 합집합 크기로 나눈 값으로 정의된다.
 
 **  예를 들어 집합 A={1, 2, 3}, 집합 B={2, 3, 4}라고 할 때, 교집합 AnB = {2, 3}, 합집합 AuB = {1, 2, 3, 4}이 되므로,
-    집합 A, B 사이의 자카드 유사도 J(A,B) = 2/4 = 0.5가 된다. 
+    집합 A, B 사이의 자카드 유사도 J(A,B) = 2/4 = 0.5가 된다.
 **  집합 A와 집합 B가 모두 공집합일 경우에는 나눗셈이 정의되지 않으니 따로 J(A,B) = 1로 정의한다.
 
 **  자카드 유사도는 원소의 중복을 허용하는 다중집합에 대해서 확장할 수 있다.
@@ -126,15 +126,9 @@ function solution(str1, str2) {
         }
     }
 
-
-    /*
-        합집합을 만들어보자
-    */
-    console.log(arr1, arr2);
     var gyo = intersect(arr1, arr2);
     var hap = union(arr1, arr2);
-    console.log(intersect(arr1, arr2), union(arr1, arr2));
-    console.log(J(gyo.length, hap.length) * 65536);
+    answer = Math.floor(J(gyo.length, hap.length) * 65536);
     return answer;
 }
 
@@ -158,19 +152,39 @@ function J(a, b) {
 }
 
 function union(a, b) {
-    var tmp = {},
-        res = [];
-    for (var i = 0; i < a.length; i++) tmp[a[i]] = 1;
-    for (var i = 0; i < b.length; i++) tmp[b[i]] = 1;
-    for (var k in tmp) res.push(k);
+    var res = [];
+    if(a.length > b.length){
+      res = a;
+      for(let i = 0; i< b.length; i++){
+        if(!a.includes(b[i])){
+          res.push(b[i]);
+        }
+      }
+    }else{
+      res = b;
+      for(let i = 0; i< a.length; i++){
+        if(!b.includes(a[i])){
+          res.push(a[i]);
+        }
+      }
+    }
     return res;
 }
 
 function intersect(a, b) {
-    var tmp = {},
-        res = [];
-    for (var i = 0; i < a.length; i++) tmp[a[i]] = 1;
-    for (var i = 0; i < b.length; i++)
-        if (tmp[b[i]]) res.push(b[i]);
+    var res = [];
+    if(a.length > b.length){
+      for(let i = 0; i < b.length; i++){
+        if(a.includes(b[i])){
+          res.push(b[i]);
+        }
+      }
+    }else{
+      for(let i = 0; i < a.length; i++){
+        if(b.includes(a[i])){
+          res.push(a[i]);
+        }
+      }
+    }
     return res;
 }
