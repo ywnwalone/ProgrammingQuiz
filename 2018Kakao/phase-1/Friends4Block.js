@@ -65,38 +65,74 @@
 
 
 var test1 = {
-  m:4, n:5, board: ['CCBDE',
-                    'AAADE',
-                    'AAABF',
-                    'CCBBF']
+    m: 4,
+    n: 5,
+    board: ['CCBDE',
+        'AAADE',
+        'AAABF',
+        'CCBBF'
+    ]
 }
 var test2 = {
-  m:6, n:6, board: ['TTTANT',
-                    'RRFACC',
-                    'RRRFCC',
-                    'TRRRAA',
-                    'TTMMMF',
-                    'TMMTTJ']
+    m: 6,
+    n: 6,
+    board: ['TTTANT',
+        'RRFACC',
+        'RRRFCC',
+        'TRRRAA',
+        'TTMMMF',
+        'TMMTTJ'
+    ]
 }
 
-function solution(test){
-  var m = test.m;
-  var n = test.n;
-  var board = test.board;
-  var arr = [];
-  var answer = 0;
-
-  for(var i = 0; i < m-1; i++){
-    for(var j = 0; j < n-1; j++){
-      if(board[i][j]==board[i][j+1] && board[i][j]==board[i+1][j] && board[i+1][j+1]){
-        console.log(board[i][j],board[i][j+1],board[i+1][j],board[i+1][j+1]);
-        arr.push(i+','+j);
-      }
+function solution(test) {
+    var m = test.m;
+    var n = test.n;
+    var isScored = false;
+    var board = test.board;
+    var arr = [];
+    var answer = 0;
+    for (var z = 0; z < m; z++) {
+        board[z] = board[z].split('');
     }
-  }
+    for (var i = 0; i < m - 1; i++) {
 
-  console.log(arr);
-  return answer;
+        for (var j = 0; j < n - 1; j++) {
+            //대표 좌표 추출
+            if (board[i][j] == board[i][j + 1] && board[i][j] == board[i + 1][j] && board[i + 1][j + 1]) {
+                //board[i][j] = '0';
+                arr.push([i, j]);
+                isScored = true;
+            }
+        }
+        if (isScored && i == m - 2) {
+            //대표 좌표와 인근좌표를 0으로 치환 == 삭제하는 작업
+            for (var k = 0; k < arr.length; k++) {
+                board[arr[k][0]][arr[k][1]] = '0';
+                board[arr[k][0]][arr[k][1] + 1] = '0';
+                board[arr[k][0] + 1][arr[k][1]] = '0';
+                board[arr[k][0] + 1][arr[k][1] + 1] = '0';
+            }
+
+            //중력 Function.
+            for (var p = 0; p < m - 1; p++) {
+                for (var q = 0; q < n - 1; q++) {
+                    if (board[p + 1][q] == '0') {
+                        var temp = board[p][q];
+                        board[p][q] = board[p + 1][q];
+                        board[p + 1][q] = temp;
+                    }
+                }
+            }
+
+            //루프 시작
+            // i = 0;
+            // isScored = false;
+        }
+    }
+
+    console.log(board);
+    return answer;
 }
 
 
