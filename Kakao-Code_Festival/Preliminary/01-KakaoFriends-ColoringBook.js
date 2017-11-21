@@ -34,8 +34,6 @@
 
 **  output : [4, 5]
 */
-
-
 var test = {
   m: 6,
   n: 4,
@@ -48,44 +46,47 @@ var test = {
     [0,0,0,3]
   ]
 };
-
 function floodFill(picture,row,column,value,m,n){
-  if(row < 0 || column <0 || row >= m || column >= n || value == 0){
+  if(row < 0 || column <0 || row >=m || column >= n || value == 0){
     return 0;
-  }
-  if(picture[row][column] != value){
+  }else if(picture[row][column] != value){
     return 0;
   }else{
-    var count = 1;
+    let count = 1;
+    picture[row][column] = 0;
     count += floodFill(picture,row,column+1,value,m,n);
-    // count += floodFill(picture,row+1,column,value,m,n);
-    // count += floodFill(picture,row-1,column,value,m,n);
-    // count += floodFill(picture,row,column-1,value,m,n);
-
+    count += floodFill(picture,row+1,column,value,m,n);
+    count += floodFill(picture,row-1,column,value,m,n);
+    count += floodFill(picture,row,column-1,value,m,n);
     return count;
   }
-
 }
 function solution(test){
   const m = test.m;
   const n = test.n;
   const picture = test.picture;
 
-  var answer = 0;
+  var answer = [];
+  var temp = 0
   var count = 0;
   var maximum = 0;
 
   for(let i = 0; i<m; i++){
+    temp = 0;
     for(let j = 0; j<n; j++){
       if(picture[i][j] != 0){
-        answer = floodFill(picture,i,j,picture[i][j],m,n);
+        temp = floodFill(picture, i, j, picture[i][j],m,n);
       }
-
+    }
+    if(maximum < temp){
+      maximum = temp;
+    }
+    if(temp >= 1){
+      count++;
     }
   }
-
-
-
+  answer.push(count);
+  answer.push(maximum);
   return answer;
 }
 
