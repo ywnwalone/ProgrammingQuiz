@@ -69,12 +69,40 @@ var test2 = {
     [1, 0, 0, 2, 2, 0]
   ]
 };
+function Hgo(i,j,arr){
+  let answer = 0;
+  if(i == arr.length-1 && j == arr[0].length -1 ){
+    return 1;
+  }
+  if(arr[i][j] !=1 && j+1 < arr[0].length){
+    answer += Hgo(i,j+1,arr);
+  }
+  if(arr[i][j] == 0 && i+1 < arr.length){
+    answer += Vgo(i+1,j,arr);
+  }
+  return answer;
+}
+function Vgo(i,j,arr){
+  let answer = 0;
+  if(i == arr.length-1 && j == arr[0].length -1 ){
+    return 1;
+  }
+  if(arr[i][j] == 0 && j+1 < arr[0].length){
+    answer += Hgo(i,j+1,arr);
+  }
+  if(arr[i][j] != 1 && i+1 < arr.length){
+    answer += Vgo(i+1,j,arr);
+  }
+  return answer;
+}
 
 function solution(test){
   const m = test.m;
   const n = test.n;
   const city_map = test.city_map;
   var answer = 0;
+  answer += Hgo(0,1,city_map);
+  answer += Vgo(1,0,city_map);
 
 
   return answer;
