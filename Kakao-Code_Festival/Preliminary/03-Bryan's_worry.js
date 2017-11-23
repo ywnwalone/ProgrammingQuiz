@@ -57,9 +57,9 @@
 /*
 **  [출력 형식]
 
-**  입력으로 주어진 광고 문구의 규칙 적용 전 원래 문구를 리턴한다. 
-**  단 원래 문구의 경우 문장 앞뒤의 공백이 없어야 하며, 단어 사이의 공백은 한 글자여야 한다. 
-**  가능한 답이 여러 가지인 경우 그중 하나를 리턴하면 된다. 
+**  입력으로 주어진 광고 문구의 규칙 적용 전 원래 문구를 리턴한다.
+**  단 원래 문구의 경우 문장 앞뒤의 공백이 없어야 하며, 단어 사이의 공백은 한 글자여야 한다.
+**  가능한 답이 여러 가지인 경우 그중 하나를 리턴하면 된다.
 **  규칙에 따른 변환으로 만들 수 없는 문자열이 입력된 경우에는 소문자로 invalid를 리턴한다.
 */
 
@@ -88,25 +88,12 @@ function solution(sentence) {
     var stack = [];
 
     for (var i = 0; i < sentence.length; i++) {
-        console.log(isUppercase(sentence[i]))
-        if (i == 0) {
-            if (!isUppercase(sentence[0])) {
-                word++;
-            }
-        } else if (isUppercase(sentence[i])) {
-            stack += sentence[i];
-        } else if (!isUppercase(sentence[i]) && i < sentence.length - 1 && !isUppercase(sentence[i - 1])) {
-            stack += ' ';
-        }
+
     }
 
     return stack;
 }
 
-function isUppercase(c) {
-    return !c.toLowerCase() >= 'a'
-
-}
 
 console.log(solution(test1));
 console.log(solution(test2));
