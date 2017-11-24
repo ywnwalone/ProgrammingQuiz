@@ -10,6 +10,7 @@
 function longest_palindrom(s){
   var result = 0;
   // 함수를 완성하세요
+  var revered = s.split('').reverse().join('');
 
   return result;
 }
