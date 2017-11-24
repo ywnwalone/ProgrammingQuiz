@@ -85,10 +85,20 @@ var test3 = "AxAxAxAoBoBoB";
 function solution(sentence) {
     var answer = 'invalid';
     var word = 0;
-    var stack = [];
+    var rule1 = '';
+    var rule2 = '';
 
     for (var i = 0; i < sentence.length; i++) {
+        if (sentence[i] >= 'a') {
+            if (rule1 == '' && rule2 == '') {
+                rule2 = sentence[i];
+            } else if (rule2 == sentence[i]) {
 
+            } else if (rule1 != '' && rule2 != '' && rule1 == sentence[i]) {
+
+            }
+
+        }
     }
 
     return stack;

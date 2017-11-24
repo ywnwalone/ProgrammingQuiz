@@ -7,17 +7,19 @@
   예를들어 [2,6,8,14] 가 입력된다면 168을 반환해 주면 됩니다.
 */
 function nlcm(num) {
-	var answer = 0;
-  answer = num.sort((a,b)=>a-b).reduce(lcm);
-	return answer;
+    var answer = 0;
+    answer = num.sort((a, b) => a - b).reduce(lcm);
+    return answer;
 }
-function lcm(a,b){
-  return (a*b)/gcd(a,b);
+
+function lcm(a, b) {
+    return (a * b) / gcd(a, b);
 }
-function gcd(a, b){
-  return (a % b == 0 ? b : gcd(b, a%b));
+
+function gcd(a, b) {
+    return (a % b == 0 ? b : gcd(b, a % b));
 }
 
 
 // 아래는 테스트로 출력해 보기 위한 코드입니다.
-console.log(nlcm([2,6,8,14]));
+console.log(nlcm([2, 6, 8, 14]));
