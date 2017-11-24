@@ -9,13 +9,12 @@
 
 function collatz(num) {
 	var answer = 0;
-  var count = 0;
-  while(num==1){
-    if(count >= 500){
+  while(num != 1){
+    if(answer >= 500){
       answer = -1;
       break;
     }
-    count++;
+    answer++;
     if(num%2 == 0){
       num /= 2;
     }else{
@@ -23,7 +22,6 @@ function collatz(num) {
       num += 1;
     }
   }
-  answer = count;
 	return answer;
 }
 
